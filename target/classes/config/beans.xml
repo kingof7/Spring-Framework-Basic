@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Hello class-->
+	<bean id="hello" class="myspring.di.xml.Hello">
+		<!-- 의존관계 설정 필요 // property는 setter method와-->
+		<!-- setName(name)와 매핑됨 // Spring은 버퍼에 들어기 떄문에, setPrinter에도 문자가 들어감 -->
+		<property name="name" value="Spring"/>		
+		<!-- printer는 객체이기 떄문에 value아니고 ref // 16라인 참조-->		
+		<!-- setPrinter(printer) 매서드와 매핑 -->
+		<property name="printer" ref="printer"/>		
+	</bean>
+	
+	<!-- bean 등록 -->
+	<bean id="printer" class="myspring.di.xml.StringPrinter"/>
+	<bean id="consolePrinter" class="myspring.di.xml.ConsolePrinter"></bean>
+</beans>
