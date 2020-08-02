@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+					http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+					http://www.springframework.org/schema/context/spring-context-3.0.xsd
+					
+	">
+
+	
+	<context:property-placeholder location="classpath.config/value.properties"/>
+	
+	<bean id="hello2" class="myspring.di.xml.Hello">
+		<constructor-arg index="0" value="${myname}" />
+		<constructor-arg index="1" ref="${myprinter}" />
+		
+		<property name="names">
+			<list>
+				<value>${value1}</value>
+				<value>${value2}</value>				
+				<value>${value3}</value>				
+			</list>
+		</property>
+	</bean>
 	
 	<!-- Hello class-->
 	<bean id="hello" class="myspring.di.xml.Hello">
@@ -10,7 +31,8 @@
 		<property name="name" value="Spring" />		
 		<!-- printer는 객체이기 떄문에 value아니고 ref // 16라인 참조-->		
 		<!-- setPrinter(printer) 매서드와 매핑 -->
-		<property name="printer" ref="printer"/>		
+		<property name="printer" ref="printer"/>
+				
 	</bean>
 	
 	<!-- setter method로 매핑한다는 뜻은 IoC 컨테이너(스프링 컨테이너)가 아래 두 bean을 Hello bean에 의존성 주입했다는 뜻임, 그러니까 value="String"을 공유함-->
